@@ -1,0 +1,9 @@
+
+table {
+    margin: 20px 0;
+  }
+  
+  th.mat-header-cell, td.mat-cell {
+    padding: 8px;
+  }
+  
