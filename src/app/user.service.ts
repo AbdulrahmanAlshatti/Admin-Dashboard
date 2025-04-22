@@ -13,7 +13,8 @@ export class UserService {
   }
 
   create(user: User){
-    this.users.push(user);
+    this.users = [...this.users, user];
+    // this.users.push(user);
   }
 
   Read(id:Number): User | undefined{

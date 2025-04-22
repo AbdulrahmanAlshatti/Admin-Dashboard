@@ -1,8 +1,33 @@
 
+interface Dictionary<T> {
+  [key: string]: T;
+  }
+  
+export interface TypeInfo{
+  type: string,
+  name: string,
+  options?: any
+}
 
-type Role = 'admin' | 'customer' | 'manager'
-type Status = 'active' | 'inactive' | 'banned'
 
+
+export enum Role{
+  admin = 'admin',
+  customer = 'customer',
+  manager = 'manager'
+}
+
+export enum Status {
+  active = 'active',
+  inactive = 'inactive',
+  banned = 'banned'
+}
+
+
+export interface ImageLink{
+  
+  imageLink:string
+}
 
 export interface User{
     id: number,
@@ -13,7 +38,22 @@ export interface User{
     createdAt: Date,
     lastLogin: Date | undefined,
     isEmailVerified: boolean,
-    avatarUrl: string,    
+    avatarUrl: ImageLink,    
+}
+
+
+
+export const userSchema:Dictionary<TypeInfo> = {
+  id: {type: 'number', name:  'رقم'},
+  name: {type: 'string', name:  'اسم'},
+  email: {type: 'string', name: 'ايميل'},
+  role: {type: 'enum', options: Object.values(Role), name:  'صلاحية'},
+  status: {type: 'enum', options: Object.values(Status), name:  'حالة'},
+  createdAt: {type: 'date', name:  'تاريخ الإنشاء'},
+  lastLogin: {type: 'date', name:  'اخر دخول'},
+  isEmailVerified: {type: 'boolean', name:  'مسجل'},
+  avatarUrl: {type: 'string', name:  'الصورة'},
+
 }
 
 export const USERS: User[] = [
@@ -21,33 +61,33 @@ export const USERS: User[] = [
       id: 1,
       name: "Alice Johnson",
       email: "alice@example.com",
-      role: 'admin',
-      status: 'active',
+      role: Role.admin,
+      status: Status.active,
       createdAt: new Date("2024-01-15T08:30:00Z"),
       lastLogin:  new Date("2024-06-01T12:15:00Z"),
       isEmailVerified: true,
-      avatarUrl: "https://i.pravatar.cc/100?img=1"
+      avatarUrl: { imageLink: "https://i.pravatar.cc/100?img=1"}
     },
     {
       id: 2,
       name: "Bob Smith",
       email: "bob@example.com",
-      role: 'customer',
-      status: 'banned',
+      role: Role.customer,
+      status: Status.banned,
       createdAt: new Date("2023-11-10T14:45:00Z"),
       lastLogin: undefined,
       isEmailVerified: false,
-      avatarUrl: "https://i.pravatar.cc/100?img=2"
+      avatarUrl: { imageLink: "https://i.pravatar.cc/100?img=2"}
     },
     {
       id: 3,
       name: "Sarah Lee",
       email: "sarah@example.com",
-      role: 'manager',
-      status: 'inactive',
+      role: Role.manager,
+      status: Status.inactive,
       createdAt: new Date("2024-03-01T09:00:00Z"),
       lastLogin: new Date("2024-06-10T18:40:00Z"),
       isEmailVerified: true,
-      avatarUrl: "https://i.pravatar.cc/100?img=3"
+      avatarUrl: { imageLink: "https://i.pravatar.cc/100?img=3"}
     }
   ];

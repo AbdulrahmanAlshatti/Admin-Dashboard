@@ -1,0 +1,33 @@
+
+<!-- @if(show){ -->
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <h2>Insert</h2>           
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                @for (entry of form.controls | keyvalue; track entry.key) {
+                    <div class="input-row">
+                      <label class="input-label">{{ schema[entry.key].name }}</label>
+            
+                      @if (schema[entry.key]?.type === 'enum') {
+                        <select class="input-select-field" [formControlName]="entry.key">
+                          @for (opt of schema[entry.key].options; track opt) {
+                            <option [value]="opt">{{ opt }}</option>
+                          }
+                        </select>
+                      } @else {
+                        <input class="input-field"
+                          [formControlName]="entry.key"
+                          [type]="schema[entry.key].type"
+                        />
+                      }
+                    </div>
+                }
+            
+                <button type="submit">Submit</button>
+                <button type="button" (click)="close.emit()">Cancel</button>
+              </form>            
+        </div>
+    </div>
+<!-- } -->

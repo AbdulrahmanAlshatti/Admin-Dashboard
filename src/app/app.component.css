@@ -1,9 +1,23 @@
 
 table {
-    margin: 20px 0;
-  }
-  
-  th.mat-header-cell, td.mat-cell {
-    padding: 8px;
-  }
-  
+  margin: 20px 0;
+}
+
+th.mat-header-cell, td.mat-cell {
+  padding: 8px;
+}
+
+.header {
+  background: blue;
+  color:white
+}
+
+.row {
+  background: yellow;
+}
+
+.testclass{
+  height: 20px;
+  border-radius: 10px;
+}
+
