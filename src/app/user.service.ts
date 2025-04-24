@@ -1,36 +1,48 @@
 import { Injectable } from '@angular/core';
-import { User, USERS } from '../data/users';
+import { User, USERS, userSchema } from '../data/users';
+import { GenericService } from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-
+export class UserService extends GenericService {
   users: User[]
 
   constructor() { 
+    super()
     this.users = USERS
   }
 
-  create(user: User){
+  override create(user: User){
     this.users = [...this.users, user];
-    // this.users.push(user);
+    console.log(this.users)
   }
 
-  Read(id:Number): User | undefined{
+  override read(id:Number): User | undefined{
     return this.users.find(x=>x.id == id)
   }
 
-  Update(user: User){
+  override update(user: User){
     let index = this.users.findIndex(x=>x.id == user.id)
     if(index != -1)
       this.users[index] = user;
   }
 
-  Delete(id:Number){
+  override delete(id:Number){
     this.users = this.users.filter(x => x.id != id)
   }
 
+  override getData(): any[] { 
+    return this.users
+  }
+
+  override getSchema(): any {
+    return userSchema
+  }
+
+  override getKeys() {
+    return Object.keys(this.users[0])
+  }
 
 }
 

@@ -1,31 +1,40 @@
-<!-- 
-<app-popup [] [show]="showPopup" [itemType]="userKeys()" (close)="closePopup()"></app-popup> -->
 
 <app-popup
   *ngIf="showPopup"
-  [data]="userService.users"
-  [schema]="userSchema"
+  [data]="getData()"
+  [schema]="getSchema()"
   (close)="popupClosed()"
+  (dataSubmitted)="dataSubmitted($event)"
 ></app-popup>
 
-<!-- app.component.html -->
-<table mat-table [dataSource]="userService.users" class="mat-elevation-z8" style="width: 100%;">
+<div class="main-body">
 
-  @for (userKey of userKeys(); track userKey) {
-    <ng-container matColumnDef={{userKey}}>
-      <th mat-header-cell *matHeaderCellDef> {{userSchema[userKey].name }}  </th>
-      <td mat-cell *matCellDef="let user" [innerHTML]="user[userKey] | row"></td>
-    </ng-container>   
-  }
+  <div class="sidebar">
+    <button class="blue-button" (click)="usersClicked()">Users</button>
+    <button class="blue-button" (click)="productsClicked()">Products</button>
+  </div>
 
-  <!-- Header and Row definitions -->
-  <tr class="header" mat-header-row *matHeaderRowDef="userKeys()"></tr>
-  <tr class="row" mat-row *matRowDef="let row; columns: userKeys();"></tr>
+<div class="main" >
 
-</table>
+  <button class="blue-button" style="margin-bottom: 10px;" (click)="togglePopup()">جديد</button>
 
-<button (click)="togglePopup()">Show Popup</button>
+  <table mat-table [dataSource]="activeService.getData()" class="mat-elevation-z8" style="width: 100%; ">
+
+    @for (key of getKeys(); track key) {
+      <ng-container matColumnDef={{key}} >
+        <th mat-header-cell *matHeaderCellDef> {{activeService.getSchema()[key].name }}  </th>
+        <td mat-cell *matCellDef="let item" [innerHTML]="item[key] | row"></td>
+      </ng-container>   
+    }
+
+    <tr class="header" mat-header-row *matHeaderRowDef="getKeys()"></tr>
+    <tr class="row" mat-row *matRowDef="let row; columns: getKeys();"></tr>
+
+  </table>
+
+</div>
 
 
+</div>
 
 <router-outlet />

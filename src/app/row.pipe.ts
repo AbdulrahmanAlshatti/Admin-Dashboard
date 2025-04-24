@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {formatDate} from '@angular/common';
 
-import { ImageLink } from '../data/users';
+import { ImageLink } from '../data/Dictionary';
 
 @Pipe({
   name: 'row',

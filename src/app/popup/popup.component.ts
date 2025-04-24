@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Role, USERS } from '../../data/users';
 import { UserService } from '../user.service';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-popup',
@@ -44,10 +45,14 @@ export class PopupComponent {
   @Input() data!: any;
   @Input() schema!: any;
   @Output() close = new EventEmitter<void>();
+  @Output() dataSubmitted = new EventEmitter<any>()
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder,private userService:UserService) {}
+  constructor(private fb: FormBuilder,
+    private userService:UserService,
+    private productService:ProductService)
+     {}
 
   ngOnInit() {
     this.form = this.buildForm(this.schema, this.data);
@@ -70,7 +75,7 @@ export class PopupComponent {
 
   onSubmit() {
     console.log('Form value:', this.form.value);
-    this.userService.create(this.form.value)
+    this.dataSubmitted.emit(this.form.value)
     this.close.emit();
   }
 

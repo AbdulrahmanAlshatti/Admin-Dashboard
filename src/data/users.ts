@@ -1,13 +1,6 @@
+import { Dictionary, ImageLink, TypeInfo } from "./Dictionary";
 
-interface Dictionary<T> {
-  [key: string]: T;
-  }
   
-export interface TypeInfo{
-  type: string,
-  name: string,
-  options?: any
-}
 
 
 
@@ -24,10 +17,6 @@ export enum Status {
 }
 
 
-export interface ImageLink{
-  
-  imageLink:string
-}
 
 export interface User{
     id: number,
@@ -41,20 +30,20 @@ export interface User{
     avatarUrl: ImageLink,    
 }
 
+export const userSchema: Dictionary<TypeInfo> = {
+  id: { type: 'number', name: 'رقم' },
+  name: { type: 'string', name: 'اسم' },
+  email: { type: 'string', name: 'ايميل' },
+  role: { type: 'enum', options: Object.values(Role), name: 'صلاحية' },
+  status: { type: 'enum', options: Object.values(Status), name: 'حالة' },
+  createdAt: { type: 'date', name: 'تاريخ الإنشاء' },
+  lastLogin: { type: 'date', name: 'اخر دخول' },
+  isEmailVerified: { type: 'boolean', name: 'مسجل' },
+  avatarUrl: { type: 'string', name: 'الصورة' },
+};
 
 
-export const userSchema:Dictionary<TypeInfo> = {
-  id: {type: 'number', name:  'رقم'},
-  name: {type: 'string', name:  'اسم'},
-  email: {type: 'string', name: 'ايميل'},
-  role: {type: 'enum', options: Object.values(Role), name:  'صلاحية'},
-  status: {type: 'enum', options: Object.values(Status), name:  'حالة'},
-  createdAt: {type: 'date', name:  'تاريخ الإنشاء'},
-  lastLogin: {type: 'date', name:  'اخر دخول'},
-  isEmailVerified: {type: 'boolean', name:  'مسجل'},
-  avatarUrl: {type: 'string', name:  'الصورة'},
 
-}
 
 export const USERS: User[] = [
     {

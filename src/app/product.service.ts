@@ -1,35 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Product,PRODUCTS } from '../data/products';
+import { Product,PRODUCTS, productSchema } from '../data/products';
+import { GenericService } from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService extends GenericService {
   products: Product[]
 
   constructor() { 
+    super()
     this.products = PRODUCTS
   }
-
-  create(product: Product){
-    this.products.push(product);
+  
+  override create(product: Product){
+    this.products = [...this.products, product];
+    console.log(this.products)
   }
 
-  Read(id:Number): Product | undefined{
+  override read(id:Number): Product | undefined{
     return this.products.find(x=>x.id == id)
   }
 
-  Update(product: Product){
+  override update(product: Product){
     let index = this.products.findIndex(x=>x.id == product.id)
     if(index != -1)
       this.products[index] = product;
   }
 
-  Delete(id:Number){
+  override delete(id:Number){
     this.products = this.products.filter(x => x.id != id)
   }
 
+  
+  override getData(): any[] { 
+    return this.products
+  }
 
+  override getSchema(): any {
+    return productSchema
+  }
 
+  override getKeys() {
+    return Object.keys(this.products[0])
+  }
+
+  
 
 }

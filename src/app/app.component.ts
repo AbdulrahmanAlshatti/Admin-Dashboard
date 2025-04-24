@@ -4,8 +4,11 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { UserService } from './user.service';
 import { User, userSchema} from '../data/users';
+import { Product, productSchema} from '../data/products';
 import { RowPipe } from './row.pipe';
 import { PopupComponent } from "./popup/popup.component";
+import { ProductService } from './product.service';
+import { GenericService } from './generic.service';
 
 
 @Component({
@@ -17,32 +20,64 @@ import { PopupComponent } from "./popup/popup.component";
 })
 export class AppComponent {
 
+  activeService: GenericService;
+
+  productSchema = productSchema;
   userSchema = userSchema
   title = 'Admin-Dashboard';
   showPopup = false;
 
-  userService: UserService;
+  // page:number= 0
 
-
-  constructor(userService: UserService){
-    this.userService = userService;
+  productsClicked() {
+    this.activeService = this.productService
   }
 
-  userKeys(){    
-    return Object.keys(this.userService.users[0])
+  usersClicked() {
+    this.activeService = this.userService
+  }
+  
+
+  constructor(
+    public userService: UserService,
+    public productService: ProductService    
+  ){
+    this.activeService = this.userService
   }
 
-  togglePopup() {
+  getKeys() : string[] {
+    return this.activeService.getKeys();
+  }
+
+
+
+  productKeys(){    
+    return Object.keys(this.productService.products[0])
+  }
+
+  dataSubmitted(data: any) {
+    this.activeService.create(data)
+  }
+    
+  togglePopup() {    
     this.showPopup = !this.showPopup;
   }
 
   closePopup() {
     this.showPopup = false;
   }
-
+  
   popupClosed() {
-    this.showPopup = false
-    console.log(this.userService.users)
+    this.closePopup()
   }
+
+  getData(): any {
+    return this.activeService.getData()
+  }
+
+  getSchema(): any {
+    return this.activeService.getSchema();
+  }
+  
 
 }

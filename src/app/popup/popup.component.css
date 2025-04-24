@@ -36,13 +36,45 @@
 }
 
 .input-label{
-    color: red;
 }
 
 .input-field{
-    color: green;    
+    width: 50%; 
+    padding: 3px 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
 }
 
 .input-select-field{
-    color:blue;
+    width: 55%; 
+    padding: 3px 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
 }
+
+
+
+
+.blue-button {
+    background-color: #2979ff; /* Vivid blue */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blue-button:hover {
+    background-color: #1565c0; /* Darker blue on hover */
+    transform: translateY(-2px);
+  }
+  
+  .blue-button:active {
+    background-color: #0d47a1; /* Even darker on click */
+    transform: translateY(0);
+  }
